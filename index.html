@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <style>
+    :root{
+      --bg:#f3f6fb;
+      --card:#ffffff;
+      --accent:#2563eb; /* blue */
+      --muted:#6b7280;
+      --radius:12px;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, #e8f0ff 0%, var(--bg) 100%);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      width:100%;
+      max-width:420px;
+      box-shadow:0 10px 30px rgba(16,24,40,0.08);
+      padding:28px 24px;
+    }
+
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:18px;
+    }
+
+    .logo{
+      width:96px;
+      height:96px;
+      border-radius:16px;
+      object-fit:cover;
+      border:1px solid rgba(0,0,0,0.04);
+      box-shadow:0 6px 18px rgba(37,99,235,0.08);
+      background:var(--glass);
+    }
+
+    h1{
+      text-align:center;
+      margin:6px 0 18px 0;
+      font-size:20px;
+      color:#0f172a;
+    }
+
+    .subtitle{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:20px;
+    }
+
+    form{
+      display:grid;
+      gap:12px;
+    }
+
+    label{
+      font-size:13px;
+      color:#111827;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    input[type="text"], input[type="password"]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid #e6edf6;
+      background:#fafcff;
+      font-size:14px;
+      outline:none;
+      transition:box-shadow .15s, border-color .15s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus{
+      box-shadow:0 6px 16px rgba(37,99,235,0.08);
+      border-color:var(--accent);
+    }
+
+    .row{display:flex;align-items:center;justify-content:space-between}
+
+    .show-pass{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+
+    button{
+      background:linear-gradient(90deg,var(--accent),#1e40af);
+      color:white;
+      padding:12px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      font-size:15px;
+    }
+    button:active{transform:translateY(1px)}
+
+    .note{font-size:13px;color:var(--muted);text-align:center;margin-top:14px}
+
+    .error{color:#b91c1c;font-size:13px;margin-top:6px}
+
+    @media (max-width:420px){
+      .card{padding:20px}
+      .logo{width:80px;height:80px}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <div class="logo-wrap">
+      <img class="logo" src="https://i.pinimg.com/736x/e1/23/25/e123254ac75c44edadaaaecfb2bb416c.jpg" alt="Logo" />
+    </div>
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Sign in to continue to your dashboard</p>
+
+    <form id="loginForm" autocomplete="off" onsubmit="return handleSubmit(event)">
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" placeholder="Enter username" required />
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter password" required />
+      </div>
+
+      <div class="row">
+        <label class="show-pass"><input id="toggle" type="checkbox" onclick="togglePassword()"/> Show password</label>
+        <a href="#" style="font-size:13px;color:var(--accent);text-decoration:none">Forgot?</a>
+      </div>
+
+      <div>
+        <button type="submit">Sign In</button>
+      </div>
+
+      <p id="feedback" class="note"></p>
+    </form>
+  </main>
+
+  <script>
+    function togglePassword(){
+      const p = document.getElementById('password');
+      p.type = p.type === 'password' ? 'text' : 'password';
+    }
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+      const fb = document.getElementById('feedback');
+      fb.textContent = '';
+
+      if(u.length < 3){
+        fb.textContent = 'Username must be at least 3 characters long.';
+        fb.className = 'error';
+        return false;
+      }
+      if(p.length < 6){
+        fb.textContent = 'Password must be at least 6 characters long.';
+        fb.className = 'error';
+        return false;
+      }
+
+      // For demonstration only — show success message
+      fb.className = 'note';
+      fb.textContent = Logged in as "${u}" — (demo only, no server request);
+      // You could redirect or submit via fetch here.
+      return false;
+    }
+  </script>
+</body>
+</html>
