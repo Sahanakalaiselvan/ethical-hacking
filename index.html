@@ -111,6 +111,17 @@
 
     .error{color:#b91c1c;font-size:13px;margin-top:6px}
 
+    .link-row{
+      text-align:center;
+      margin-top:10px;
+    }
+
+    .link-row a{
+      font-size:13px;
+      color:var(--accent);
+      text-decoration:none;
+    }
+
     @media (max-width:420px){
       .card{padding:20px}
       .logo{width:80px;height:80px}
@@ -145,6 +156,11 @@
         <button type="submit">Sign In</button>
       </div>
 
+      <!-- New link for Search Page -->
+      <div class="link-row">
+        <a href="search.html">Go to Search Page</a>
+      </div>
+
       <p id="feedback" class="note"></p>
     </form>
   </main>
@@ -176,7 +192,6 @@
       // For demonstration only — show success message
       fb.className = 'note';
       fb.textContent = Logged in as "${u}" — (demo only, no server request);
-      // You could redirect or submit via fetch here.
       return false;
     }
   </script>
